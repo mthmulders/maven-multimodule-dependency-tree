@@ -21,3 +21,6 @@ This is strange, since that artifact is in fact present in the Reactor.
 
 Now run `mvn install` followed by `mvn dependency:tree`.
 This should succeed.
+
+## Work-around
+Run `mvn compile dependency:tree` for multi-module projects.

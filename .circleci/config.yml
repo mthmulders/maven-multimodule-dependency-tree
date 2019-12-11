@@ -15,6 +15,15 @@ jobs:
                 echo "*** DIDN'T WORK ***"
             fi
       - run:
+          name: Run mvn compile dependency:tree
+          shell: /bin/bash -o pipefail
+          command: |
+            mvn compile dependency:tree
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -ne 0 ]; then
+                echo "*** DIDN'T WORK ***"
+            fi
+      - run:
           name: Run mvn install followed by mvn dependency:tree
           shell: /bin/bash -o pipefail
           command: |
