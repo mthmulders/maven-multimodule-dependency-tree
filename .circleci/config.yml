@@ -7,6 +7,7 @@ jobs:
       - checkout
       - run:
           name: Run mvn dependency:tree
+          shell: /bin/bash -o pipefail
           command: |
             mvn dependency:tree
             EXIT_CODE=$?
@@ -15,6 +16,7 @@ jobs:
             fi
       - run:
           name: Run mvn install followed by mvn dependency:tree
+          shell: /bin/bash -o pipefail
           command: |
             mvn install
             mvn dependency:tree
