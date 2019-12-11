@@ -1,0 +1,28 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+      - run:
+          name: Run mvn dependency:tree
+          command: |
+            mvn dependency:tree
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -ne 0 ]; then
+                echo "*** DIDN'T WORK ***"
+            fi
+      - run:
+          name: Run mvn install followed by mvn dependency:tree
+          command: |
+            mvn install
+            mvn dependency:tree
+            EXIT_CODE=$?
+            if [ $EXIT_CODE -ne 0 ]; then
+                echo "*** DIDN'T WORK ***"
+            fi
+      - run:
+          name: Cleanup local Maven repository
+          command: |
+            rm -Rf ~/.m2/repository/it/mulders/maven/multimodule/
